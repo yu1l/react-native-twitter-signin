@@ -42,7 +42,7 @@ RCT_EXPORT_METHOD(logIn: (RCTPromiseResolveBlock)resolve
                                        @"email": requestedEmail,
                                        @"userName":session.userName};
                 if (authNotResolved) {
-                  resolve(true);
+                  resolve(body);
                   authNotResolved = false;
                 }
             }];
