@@ -20,6 +20,8 @@
 
 RCT_EXPORT_MODULE();
 
+BOOL authNotResolved = true;
+
 RCT_EXPORT_METHOD(init: (NSString *)consumerKey consumerSecret:(NSString *)consumerSecret resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -39,7 +41,10 @@ RCT_EXPORT_METHOD(logIn: (RCTPromiseResolveBlock)resolve
                                        @"userID":session.userID,
                                        @"email": requestedEmail,
                                        @"userName":session.userName};
-                resolve(body);
+                if (authNotResolved) {
+                  resolve(true);
+                  authNotResolved = false;
+                }
             }];
         } else {
             reject(@"Error", @"Twitter signin error", error);
